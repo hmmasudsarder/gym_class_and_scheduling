@@ -10,7 +10,7 @@ const createSchedule = catchAsync(async (req, res) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.CREATED,
-        message: 'Class Schedule created successfully',
+        message: 'Schedule created successfully',
         data: result,
     });
 });

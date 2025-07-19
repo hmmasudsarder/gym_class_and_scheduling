@@ -4,7 +4,6 @@ import sendResponse from '../../utils/sendResponse';
 import { classScheduleService } from './scheduling.service';
 
 const createSchedule = catchAsync(async (req, res) => {
-    //   console.log(req.body,"dataaa")
     const result = await classScheduleService.createSchedule(req.body);
 
 
@@ -52,7 +51,7 @@ const deleteSchedule = catchAsync(async (req, res) => {
 });
 
 
-export const classScheduleControll = {
+export const ScheduleControll = {
     createSchedule,
     getAllSchedules,
     updateSchedule,

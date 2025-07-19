@@ -2,13 +2,13 @@
 import express from 'express';
 
 import auth from '../../middlewares/auth';
-import { classScheduleControll } from './scheduling.controller';
+import { ScheduleControll } from './scheduling.controller';
 
 
-const classSchedulrouter = express.Router();
+const Schedulrouter = express.Router();
 
-classSchedulrouter.post('/create', auth("ADMIN"), classScheduleControll.createSchedule);
-classSchedulrouter.get('/', classScheduleControll.getAllSchedules);
-classSchedulrouter.patch('/:id', auth('ADMIN'), classScheduleControll.updateSchedule);
-classSchedulrouter.delete('/:id', auth('ADMIN'), classScheduleControll.deleteSchedule);
-export default classSchedulrouter;
+Schedulrouter.post('/create', auth("ADMIN"), ScheduleControll.createSchedule);
+Schedulrouter.get('/', ScheduleControll.getAllSchedules);
+Schedulrouter.patch('/:id', auth('ADMIN'), ScheduleControll.updateSchedule);
+Schedulrouter.delete('/:id', auth('ADMIN'), ScheduleControll.deleteSchedule);
+export default Schedulrouter;

@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AuthServer } from './auth.services';
-// import { AuthServer } from './auth.service';
+
 
 
 const register = catchAsync(async (req, res) => {
@@ -22,7 +22,7 @@ const login = catchAsync(async (req, res) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.ACCEPTED,
-        // token: result.token,
+        token: result.token,
         message: 'Login is successfully',
         data: result.veryfiUser,
     })

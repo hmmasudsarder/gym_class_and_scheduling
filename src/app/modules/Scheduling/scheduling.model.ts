@@ -1,0 +1,26 @@
+import { Schema, model } from 'mongoose';
+import { IClassSchedule } from './scheduling.interface';
+
+
+const classScheduleSchema = new Schema<IClassSchedule>({
+    date: {
+        type: String,
+        required: true,
+    },
+    startTime: {
+        type: String,
+        required: true,
+    },
+    endTime: {
+        type: String,
+        required: true,
+    },
+    trainer: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+}, { timestamps: true });
+
+const Schedule = model('ClassSchedule', classScheduleSchema);
+export default Schedule;

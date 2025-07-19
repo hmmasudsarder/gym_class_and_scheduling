@@ -1,4 +1,4 @@
-# 📚 Book Store API - Assignment 2
+<!-- # 📚 Book Store API - Assignment 2
 
 This project is a RESTful API built with **Express** and **TypeScript** to manage a book store. It uses **MongoDB** with Mongoose for data storage and retrieval.
 
@@ -52,7 +52,7 @@ This project requires **Node.js** and **npm** to be installed on your system.
 
    ```json
    PORT=5000
-   DB_URI=<Your MongoDB Connection URI>
+   DATABASE_URL=<Your MongoDB Connection URI>
 
    ```
 
@@ -320,4 +320,4 @@ The API uses standard HTTP status codes to indicate success or failure. In case 
 
 - Fork the repository and clone it locally.
 - Follow the steps under Getting Started.
-- Open a pull request for feature updates or bug fixes.
+- Open a pull request for feature updates or bug fixes. -->

@@ -348,17 +348,17 @@ cd gym-management-system
 npm install
 🧾 Environment Setup
 Create .env file:
+   ```json
+   PORT=5000
+   DATABASE_URL=<your_db_URL>
+   BCRYPT_SALT_ROUNDS=10
+   DEFAULT_PASS=Masud123
+   JWT_ACCESS_EXPIRES_IN=15m
+   JWT_ACCESS_SECRET=<YOur_Secret_here>
+   JWT_REFRESH_SECRET=<Your_refrest_secret>
+   JWT_REFRESH_EXPIRES_IN=365d
+   ```
 
-ini
-Copy
-Edit
-PORT=5000
-DATABASE_URL=<Your_Connection_URL>
-JWT_SECRET=your_jwt_secret
-▶️ Start Server
-bash
-Copy
-Edit
 npm run dev
 The server will start at: http://localhost:5000
 

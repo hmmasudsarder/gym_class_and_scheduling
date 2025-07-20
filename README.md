@@ -1,27 +1,44 @@
-<!-- # 📚 Book Store API - Assignment 2
+🏋️ Gym Class Scheduling and Membership Management System
+This project is a full-featured Gym Management API built with TypeScript, Express.js, and JWT Authentication. It supports role-based access for Admins, Trainers, and Trainees, enforcing strict business logic around scheduling, booking, and role permissions.
 
-This project is a RESTful API built with **Express** and **TypeScript** to manage a book store. It uses **MongoDB** with Mongoose for data storage and retrieval.
+📌 Project Overview
+This system streamlines gym operations with secure and scalable APIs. Key features include:
 
----
+- Role-based access (Admin, Trainer, Trainee)
 
-## ✨ Features
+- Daily class scheduling (max 5 per day, 2 hours each)
 
-### CRUD Operations for Bikes:
+- Class booking system (max 10 trainees per class)
 
-- ➕ **Create new book**
-- 📋 **Get a list of all books**
-- 🔍 **Get a specific book by ID**
-- ✏️ **Update an existing book**
-- ❌ **Delete a book**
+- Trainee profile management
 
-### Order Management:
+Class cancellation and error handling
 
-- 🛒 **Place orders for book**
-- 📦 **Inventory Management**  
-  Updates quantity and stock status
-- 🚨 **Handles insufficient stock scenarios**
-- 💰 **Order Revenue Calculation**  
-  Calculates total revenue from all orders
+| Layer          | Tech Used            |
+| -------------- | -------------------- |
+| Programming    | TypeScript           |
+| Web Framework  | Express.js           |
+| Database       | MongoDB              |
+| ORM / ODM      | Mongoose             |
+| Authentication | JWT (JSON Web Token) |
+
+Documentation Postman
+
+## 🧩 Roles & Permissions
+
+| Role    | Permissions                                                 |
+| ------- | ----------------------------------------------------------- |
+| Admin   | Create trainers, schedule classes, assign trainers          |
+| Trainer | View assigned classes                                       |
+| Trainee | Manage profile, book/cancel booking (with limit validation) |
+
+📊 Relational Diagram
+
+Or Link to Diagram
+
+```bash
+https://drive.google.com/file/d/1lGGOwNmXeW-hrZXlpapO0bmdojJ797mH/view?usp=sharing
+```
 
 ---
 
@@ -32,13 +49,13 @@ This project requires **Node.js** and **npm** to be installed on your system.
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/hmmasudsarder/Book-Shop.git
+   git clone https://github.com/hmmasudsarder/gym_class_and_scheduling.git
    ```
 
 2. Navigate to the project directory:becareful
 
    ```bash
-   cd Book-shop
+   cd gym_class_and_scheduling
    ```
 
 3. Install dependencies:
@@ -52,8 +69,13 @@ This project requires **Node.js** and **npm** to be installed on your system.
 
    ```json
    PORT=5000
-   DATABASE_URL=<Your MongoDB Connection URI>
-
+   DATABASE_URL=<your_db_URL>
+   BCRYPT_SALT_ROUNDS=10
+   DEFAULT_PASS=Masud123
+   JWT_ACCESS_EXPIRES_IN=15m
+   JWT_ACCESS_SECRET=<YOur_Secret_here>
+   JWT_REFRESH_SECRET=<Your_refrest_secret>
+   JWT_REFRESH_EXPIRES_IN=365d
    ```
 
 ### ▶️ Running the API
@@ -74,18 +96,25 @@ http://localhost:5000
 The Book Shop API is deployed and live on Vercel, making it accessible for testing and integration.
 
 **Base URL:**  
-🌍 [https://book-shops-lilac.vercel.app/](https://book-shops-lilac.vercel.app/)
+🌍 https://gym-class-and-scheduling.vercel.app/
 
-
-```
+````
 
 Response:
 
 ```javascript
 {
-    Server is Running 5000 🏃‍♂️‍➡️
+    server is ongoing 🏃‍♂️‍➡️☄️
 }
-```
+````
+
+### 🚀 API Endpoints
+
+## 📬 Postman Documentation:
+
+🔗 Postman Collection Link https://no9999-8557.postman.co/workspace/Team-Workspace~fde2221a-4c2c-4c38-8cdd-d7652b4669f7/collection/34164465-55c8868c-1535-4541-9d70-3db07db14b5e?action=share&creator=34164465&active-environment=34164465-578ac48b-d9ce-42f7-a0ec-90370f447c1e
+
+## Authentication
 
 ### 📚 API Documentation
 
@@ -93,231 +122,246 @@ The API uses standard HTTP methods (`GET`, `POST`, `PUT`, `DELETE`) for CRUD ope
 
 ---
 
-## 📘 Inventory
+| Endpoint             | Method | Description                |
+| -------------------- | ------ | -------------------------- |
+| `/api/auth/register` | POST   | Register a user            |
+| `/api/auth/login`    | POST   | Login user and receive JWT |
 
-### ➕ Create a Book
-
-- **Endpoint**: `/api/products`
-- **Method**: `POST`
-
-**Request Body:**
-
-```json
-{
-  "title": "The of Alchemist",
-  "author": "Paulo Coelho dab",
-  "price": 20,
-  "category": "Fiction",
-  "description": "A novel about a young shepherd's journey to realize his personal legend.",
-  "quantity": 100,
-  "inStock": true
+```bash
+  {
+  "name": "MasudSardar",
+  "email": "masudsardar@gmail.com",
+  "password": "PassWord1232",
+  "role": "TRAINEE",
+  "userStatus": "active",
+  "profilePhoto": "https://example.com/profile/masud.jpg"
 }
 ```
 
-**Response:**
-
-```json
-{
-  "message": "Book created successfully",
-  "success": true,
-  "data": {
-    "title": "The of Alchemist",
-    "author": "Paulo Coelho dab",
-    "price": 20,
-    "category": "Fiction",
-    "description": "A novel about a young shepherd's journey to realize his personal legend.",
-    "quantity": 100,
-    "inStock": true,
-    "_id": "67445a95d02f249a9922acfe",
-    "createdAt": "2024-11-25T11:08:05.302Z",
-    "updatedAt": "2024-11-25T11:08:05.302Z",
-    "__v": 0
-  }
+```bash
+  {
+    "email": "masudsardar@gmail.com",
+    "password": "admin1@Pass"
 }
 ```
 
-### 📋 Get All Books
+# Response
 
-- **Endpoint:** `/api/products`
-- **Method:** `GET`
-
-**Response:**
-
-```json
-{
-  "message": "Books retrieved successfully",
-  "success": true,
-  "data": [
-    {
-      "_id": "67422e893ed594603c881d12",
-      "title": "The Alchemist",
-      "author": "Paulo Coelho",
-      "price": 15.99,
-      "category": "Fiction",
-      "description": "A novel about a young shepherd's journey to realize his personal legend.",
-      "quantity": 120,
-      "inStock": true,
-      "createdAt": "2024-11-23T19:35:37.383Z",
-      "updatedAt": "2024-11-23T19:35:37.383Z",
-      "__v": 0
+```bash
+  {
+    "success": true,
+    "message": "Login is successfully",
+    "statusCode": 202,
+    "data": {
+        "neme": "MasudSardar",
+        "email": "masudsardar@gmail.com",
+        "role": "ADMIN",
+        "id": "687cd7e13ce0142abd12b119"
     },
-    {
-      "_id": "67436cdf9c03792246084324",
-      "title": "The of Alchemist",
-      "author": "Paulo Coelho dab",
-      "price": 15,
-      "category": "Fiction",
-      "description": "A novel about a young shepherd's journey to realize his personal legend.",
-      "quantity": 116,
-      "inStock": true,
-      "createdAt": "2024-11-24T18:13:51.812Z",
-      "updatedAt": "2024-11-24T18:15:40.206Z",
-      "__v": 0
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc3Vkc2FyZGFyQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlkIjoiNjg3Y2Q3ZTEzY2UwMTQyYWJkMTJiMTE5IiwiaWF0IjoxNzUzMDEyOTk2LCJleHAiOjE3NTMzNTg1OTZ9.oSxWxh26hCKP38edS1muwL9yHbCtf66byL_YBROSmdc"
+}
+```
+
+```bash
+  {
+    "success": true,
+    "message": "Register is successfully",
+    "statusCode": 201,
+    "data": {
+        "name": "MasudSardar",
+        "email": "masudsardar@gmail.com",
+        "password": "",
+        "role": "ADMIN",
+        "profilePhoto": "https://example.com/profile/masud.jpg",
+        "userStatus": "active",
+        "_id": "687cd7e13ce0142abd12b119",
+        "createdAt": "2025-07-20T11:49:53.357Z",
+        "updatedAt": "2025-07-20T11:49:53.357Z",
+        "__v": 0
     }
-  ]
+   }
+```
+
+## Admin
+
+| Endpoint                     | Method | Description                 |
+| ---------------------------- | ------ | --------------------------- |
+| `/api/scheduling/create`     | POST   | Admin schedules a new class |
+| `/api/user`                  | GET    | View all users              |
+| `/api/scheduling`            | GET    | View all class schedules    |
+| `/api/scheduling/:id`        | GET    | View one class schedules    |
+| `/api/scheduling/:id`        | DELETE | Delete one class schedules  |
+| `/api/trainer/create-tainer` | POST   | Admin creates a trainer     |
+| `/api/trainer`               | GET    | Admin get all trainer       |
+| `/api/trainer/:id`           | DELETE | Admin Delete one trainer    |
+
+## Trainer
+
+| Endpoint           | Method | Description         |
+| ------------------ | ------ | ------------------- |
+| `/api/trainer/:id` | GET    | Get Trainer Profile |
+
+## Trainee
+
+| Endpoint                      | Method | Description                |
+| ----------------------------- | ------ | -------------------------- |
+| `/api/user/profileUpdate/:id` | PATCH  | User Update her Profile    |
+| `/api/bookings/booked`        | POST   | Trainee Booking a class    |
+| `/api/bookings/`              | GET    | Trainee Get All Bookins    |
+| `/api/bookings/cancel/:id`    | DELETE | Trainee Cancel The Booking |
+
+## 📦 Success Response Example
+
+## Admin
+
+```bash
+  {
+    "date": "2025-07-21",
+    "startTime": "03:00",
+    "endTime": "04:00",
+    "trainer": "687c0281ec58c18622925d98",
+    "classTitle": "Evening Cardio Blast"
 }
 ```
 
-### 🔍 Get a Specific Book
-
-- **Endpoint:** `/api/products/:productId`
-- **Method:** `GET`
-- **Path Param:** productId (string) - ID of the Book
-
-**Response:**
-
-```json
-{
-  "message": "Book retrieved successfully",
-  "success": true,
-  "result": {
-    "_id": "67436cdf9c03792246084324",
-    "title": "The of Alchemist",
-    "author": "Paulo Coelho dab",
-    "price": 15,
-    "category": "Fiction",
-    "description": "A novel about a young shepherd's journey to realize his personal legend.",
-    "quantity": 116,
-    "inStock": true,
-    "createdAt": "2024-11-24T18:13:51.812Z",
-    "updatedAt": "2024-11-24T18:15:40.206Z",
-    "__v": 0
-  }
+```bash
+  {
+    "success": true,
+    "message": "Schedule created successfully",
+    "statusCode": 201,
+    "data": {
+        "date": "2025-07-21",
+        "startTime": "03:00",
+        "endTime": "05:00",
+        "trainer": "687c0281ec58c18622925d98",
+        "_id": "687cde0117a6c68f4073f12a",
+        "createdAt": "2025-07-20T12:16:01.012Z",
+        "updatedAt": "2025-07-20T12:16:01.012Z",
+        "__v": 0
+    }
 }
 ```
 
-### ✏️ Update a Book
+```bash
+  {
+  "name": "John Doe",
+  "email": "johndoe4321@example.com",
+  "password": "P@ssw0rd!",
+  "role": "TRAINER"
+}
 
-- **Endpoint:** `/api/products/:productId`
-- **Method:** `PUT`
-- **Path Param:** productId (string) - ID of the Book
+```
 
-**Request Body:**
-
-```json
-{
-  "price": 15,
-  "quantity": 25
+```bash
+ {
+    "success": true,
+    "message": "Trainer created successfully",
+    "statusCode": 201,
+    "data": {
+        "name": "John Doe",
+        "email": "johndoe4321@example.com",
+        "password": "",
+        "role": "TRAINER",
+        "profilePhoto": "",
+        "userStatus": "active",
+        "_id": "687cdfc317a6c68f4073f132",
+        "createdAt": "2025-07-20T12:23:31.329Z",
+        "updatedAt": "2025-07-20T12:23:31.329Z",
+        "__v": 0
+    }
 }
 ```
 
-**Response:**
+## Trainee
 
-```json
-{
-  "message": "Book updated successfully",
-  "status": true,
-  "result": {
-    "_id": "67436cdf9c03792246084324",
-    "title": "The of Alchemist",
-    "author": "Paulo Coelho dab",
-    "price": 15, // Price updated
-    "category": "Fiction",
-    "description": "A novel about a young shepherd's journey to realize his personal legend.",
-    "quantity": 25, // Quantity updated
-    "inStock": true,
-    "createdAt": "2024-11-24T18:13:51.812Z",
-    "updatedAt": "2024-11-25T12:57:21.509Z",
-    "__v": 0
-  }
+```bash
+ {
+    "trainee": "687bf7d56341592382aaa342",
+    "schedule": "687cbee5f553967cb03d9bcd"
 }
 ```
 
-### ❌ Delete a Book
-
-- **Endpoint:** `/api/products/:productId`
-- **Method:** `DELETE`
-- **Path Param:** productId (string) - ID of the Book
-
-**Response:**
-
-```json
-{
-  "message": "Book deleted successfully",
-  "status": true,
-  "data": {}
+```bash
+ {
+    "success": true,
+    "message": "Booking successful",
+    "statusCode": 201,
+    "data": {
+        "trainee": "687cdfc317a6c68f4073f132",
+        "schedule": "687cbee5f553967cb03d9bcd",
+        "_id": "687ce93523a2a0e2cb73f9ac",
+        "createdAt": "2025-07-20T13:03:49.295Z",
+        "updatedAt": "2025-07-20T13:03:49.295Z",
+        "__v": 0
+    }
 }
 ```
 
-## 🛒 Orders
+## 🧪 Testing Instructions
 
-### ➕ Create an Order
+## ✅ Admin Test Credentials
 
-- **Endpoint**: `/api/orders`
-- **Method**: `POST`
-
-**Request Body:**
-
-```json
-{
-  "email": "customerdsfr1@example12.com",
-  "product": "67445a95d02f249a9922acfe",
-  "quantity": 2,
-  "totalPrice": 40
-}
+```bash
+  email: "masudsardar@gmail.com",
+  password: "admin1@Pass",
 ```
 
-**Response:**
+🔎 Testing Features
+Login as Admin and:
 
-```json
-{
-  "message": "Order created successfully",
-  "status": true,
-  "data": {
-    "email": "customerdsfr1@example12.com",
-    "product": "67445a95d02f249a9922acfe",
-    "quantity": 2,
-    "totalPrice": 40,
-    "_id": "6744758bcd3e634341453a66",
-    "createdAt": "2024-11-25T13:03:07.247Z",
-    "updatedAt": "2024-11-25T13:03:07.247Z",
-    "__v": 0
-  }
-}
-```
+Create trainers
 
-### 💰 Calculate Revenue
+Create up to 5 classes per day
 
-- **Endpoint:** `/api/orders/revenue`
-- **Method:** `GET`
+Assign trainers to classes
 
-**Response:**
+Login as Trainer and:
 
-```json
-{
-  "message": "Revenue calculated successfully",
-  "success": true,
-  "data": {
-    "totalRevenue": 5000
-  }
-}
-```
+View only your assigned classes
 
-Error Handling
-The API uses standard HTTP status codes to indicate success or failure. In case of errors, the response includes an error message and details about the issue.
+Login as Trainee and:
 
-🧑‍💻 Development
+Update your profile
 
-- Fork the repository and clone it locally.
-- Follow the steps under Getting Started.
-- Open a pull request for feature updates or bug fixes. -->
+Book available class (max 10 slots)
+
+Try booking full class to test limit
+
+Cancel your own bookings
+
+📂 Running Locally
+🧰 Prerequisites
+Node.js
+
+MongoDB or PostgreSQL
+
+Prisma or Mongoose
+
+Postman
+
+📥 Installation
+bash
+Copy
+Edit
+git clone https://github.com/hmmasudsarder/gym_class_and_scheduling.git
+cd gym-management-system
+npm install
+🧾 Environment Setup
+Create .env file:
+
+ini
+Copy
+Edit
+PORT=5000
+DATABASE_URL=<Your_Connection_URL>
+JWT_SECRET=your_jwt_secret
+▶️ Start Server
+bash
+Copy
+Edit
+npm run dev
+The server will start at: http://localhost:5000
+
+🌐 Live API
+📡 Base URL:
+https://gym-class-and-scheduling.vercel.app

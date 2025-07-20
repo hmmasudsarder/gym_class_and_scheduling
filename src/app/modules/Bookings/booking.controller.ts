@@ -4,9 +4,9 @@ import { bookingService } from './booking.service'
 import sendResponse from '../../utils/sendResponse'
 
 const bookSchedule = catchAsync(async (req, res) => {
-  const { scheduleId, traineeId } = req.body
-
-  const result = await bookingService.createBooking(traineeId, scheduleId)
+  const { trainee, schedule } = req.body;
+  
+  const result = await bookingService.createBooking(trainee, schedule)
 
   sendResponse(res, {
     success: true,

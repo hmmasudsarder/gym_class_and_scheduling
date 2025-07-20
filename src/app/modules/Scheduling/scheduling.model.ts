@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { IClassSchedule } from './scheduling.interface';
 
 
-const classScheduleSchema = new Schema<IClassSchedule>({
+const ScheduleSchema = new Schema<IClassSchedule>({
     date: {
         type: String,
         required: true,
@@ -22,5 +22,5 @@ const classScheduleSchema = new Schema<IClassSchedule>({
     },
 }, { timestamps: true });
 
-const Schedule = model('ClassSchedule', classScheduleSchema);
+const Schedule = model('ClassSchedule', ScheduleSchema);
 export default Schedule;

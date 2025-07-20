@@ -1,4 +1,3 @@
-// routes/classSchedule.route.ts
 import express from 'express';
 
 import auth from '../../middlewares/auth';
